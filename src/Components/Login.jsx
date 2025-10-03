@@ -4,7 +4,7 @@ import { AuthContext } from '../Providedrs/AuthProvider';
 
 const Login = () => {
     const navigate = useNavigate();
-    const {signInUser} =useContext(AuthContext);
+    const {signInUser ,signInWithGoogle} =useContext(AuthContext);
 
     const handleLogin = e =>{
         e.preventDefault();
@@ -22,6 +22,18 @@ const Login = () => {
             console.log(error)
         });
         
+    }
+
+    const handleGoogleSingIn = () =>{
+        signInWithGoogle()
+        .then(result =>{
+            console.log(result.user);
+            navigate('/');
+        })
+        .catch(error => {
+            console.log(error.message);
+            
+        })
     }
     return (
         <div className=''>
@@ -42,7 +54,11 @@ const Login = () => {
                                 <button className="btn btn-neutral mt-4">Login</button>
                             </form>
                             <p className='ml-4 mb-4'> New to this website ? please <Link to='/register'>Register</Link></p>
+                            <p>
+                                <button onClick={handleGoogleSingIn} className='btn btn-ghost'>Googole</button>
+                            </p>
                         </div>
+
                     </div>
                 </div>
             </div>
